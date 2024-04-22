@@ -5,6 +5,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify'
+import { RequestMethod } from '@nestjs/common'
 
 const bootstrap = async () => {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -15,6 +16,12 @@ const bootstrap = async () => {
     },
   )
   app.useLogger(app.get(Logger))
+  app.setGlobalPrefix('api/v1', {
+    exclude: [
+      { path: '/', method: RequestMethod.GET },
+      { path: 'health', method: RequestMethod.GET },
+    ],
+  })
   await app.listen(3000)
 }
 

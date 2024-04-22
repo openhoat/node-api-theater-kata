@@ -3,6 +3,7 @@ import { LoggerModule } from 'nestjs-pino'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { LoggerMiddleware } from './middleware/logger.middleware'
+import { HealthModule } from './health/health.module'
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware'
         },
       },
     }),
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
