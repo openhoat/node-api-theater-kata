@@ -6,6 +6,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify'
 import { RequestMethod } from '@nestjs/common'
+import { SeedService } from './seed/seed.service'
 
 const bootstrap = async () => {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -22,6 +23,8 @@ const bootstrap = async () => {
       { path: 'health', method: RequestMethod.GET },
     ],
   })
+  const seedService = app.get(SeedService)
+  await seedService.seed()
   await app.listen(3000)
 }
 
